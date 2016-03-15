@@ -19,7 +19,6 @@
 	}
 
 	main {
-		position: absolute;
 		margin: 8% auto;
 	}
 
@@ -111,7 +110,7 @@ main .card#show {
 main .card#show img {
 	display: none;
 	position: absolute;
-		top:0;
+	top:0;
 
 }
 
