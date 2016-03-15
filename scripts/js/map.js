@@ -1,9 +1,12 @@
+var centerLat = 47.410272;
+var centerLng = 0.980021;
+
 function initMap() {
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: 47.410272,
-      lng: 0.980021
+      lat: centerLat,
+      lng: centerLng
     },
     zoom: 11
   });
@@ -39,7 +42,7 @@ function getZone1Coords() {
         coords.push(new google.maps.LatLng(parseFloat(aaCoords[0]),parseFloat(aaCoords[1])));
       });
 
-      var zone1 = new google.maps.Polygon({
+      zone1 = new google.maps.Polygon({
         paths: coords,
         strokeColor: '#4CAF50',
         strokeOpacity:.8,
@@ -126,11 +129,40 @@ function getZone3Coords(rCoords) {
   });
 }
 
+function checkIfPointInZone1(point) {
+        if(!google.maps.geometry.poly.containsLocation(point, zone1)) {
+            console.log(point.lat() + ',' + point.lng() + ' is not in zone 1');
+            coords = zone1.getPath.slice(0).push(point)
+            sortedCoords = sortBounds(coords);
+            
+            sSortedBounds = '';
+            sortedCoords.forEach(function(s) {
+                sSortedBounds += s.lat() + ',' + s.lng() + ';';
+            })
+            
+            sSortedBounds.substring(0,sSortedBounds[length-1]);
+            
+            $.ajax({
+    url: "/Rosalys/scripts/ajax/updateZone1Coord.ajax.php",
+    statusCode: {
+      404: function () {
+        alert("Not Found!");
+      }
+    },
+    method: 'POST',
+    data: {coords: sSortedBounds},
+
+    success: function (result) {
+            console.log(results)
+        }});
+        }
+}
+
 function findZone(location) {
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
       {
-        origins: [map.getCenter()],
+        origins: [{lat: centerLat, lng: centerLng}],
         destinations: [location],
         travelMode: google.maps.TravelMode.DRIVING,
         avoidHighways: true,
@@ -141,9 +173,9 @@ function findZone(location) {
         } else {
           var distance = response.rows[0].elements[0].distance.value;
           var duration = response.rows[0].elements[0].duration.value;
-
           if(distance <= 5000 && duration <= 600) {
             $("#result").html('Vous &ecirc;tes en <span class="zone1">Zone 1 (5 &euro; de frais de livraison)</span>').slideDown('slow');
+            checkIfPointInZone1(location);
           } else if(distance <= 10000 && duration <= 900) {
             $("#result").html('Vous &ecirc;tes en <span class="zone2">Zone 2 (8 &euro; de frais de livraison)</span>').slideDown('slow');
           } else if(distance <= 15000 && duration <= 1500) {
@@ -153,6 +185,112 @@ function findZone(location) {
           }
         }
       });
+}
+
+function sortBounds(bounds) {
+  var cLat = centerLat;
+  var cLng = centerLng;
+  var north = [];
+  var south = [];
+
+  /*
+    	To make the polygon, we'll start by the bounds the most at west from the northerns ones, then go east. For the southerns bounds, we go east to west*/
+  for (z = 0; z < bounds.length; z++) {
+
+    //Compare latitudes with center's one. Divide bounds by northerns and southerns
+    if (bounds[z].lat() >= cLat) {
+      north.push(bounds[z]);
+    } else {
+      south.push(bounds[z]);
+    }
+  }
+
+  //First sort, by lattitudes
+  north.sort(function(a, b) {
+    if (a.lat() > b.lat()) {
+      return -1;
+    } else if (a.lat() < b.lat()) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  south.sort(function(a, b) {
+    if (a.lat() > b.lat()) {
+      return 1;
+    } else if (a.lat() < b.lat()) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+  //If two point on the same longittude, keep only the most northern
+  //Since the bounds are sorted, the sub-array contain the northen ones.
+  var northSorted = [];
+  north.forEach(function(m) {
+    var keep = true;
+    northSorted.forEach(function(n) {
+      if (m.lng() == n.lng()) {
+        keep = false;
+      }
+    });
+
+    if (keep) {
+      northSorted.push(m);
+    }
+  });
+
+  //If two point on the same longittude, keep only the most southern
+  //Since the bounds are sorted, the sub-array contain the southern ones.
+  var southSorted = [];
+  south.forEach(function(o) {
+    var keep = true;
+    southSorted.forEach(function(p) {
+      if (o.lng() == p.lng()) {
+        keep = false;
+      }
+    });
+
+    if (keep) {
+      southSorted.push(o);
+    }
+  });
+
+  //Sort by longitude. west to east
+  northSorted.sort(function(a, b) {
+    if (a.lng() > b.lng()) {
+      return 1;
+    } else if (a.lng() < b.lng()) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+  //Sort by longitude. east to west
+  southSorted.sort(function(a, b) {
+    if (a.lng() > b.lng()) {
+      return -1;
+    } else if (a.lng() < b.lng()) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+
+  //Fill the array for the polygon.
+  var boundsToReturn = [];
+  northSorted.forEach(function(m) {
+    boundsToReturn.push(m);
+  });
+
+  southSorted.forEach(function(o) {
+    boundsToReturn.push(o);
+  });
+
+  return boundsToReturn;
 }
 
 $(document).ready(function() {
