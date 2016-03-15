@@ -79,7 +79,7 @@ function getZone2Coords(rCoords) {
         coords.push(new google.maps.LatLng(aaCoords[0],aaCoords[1]));
       });
 
-      var zone2 = new google.maps.Polygon({
+      zone2 = new google.maps.Polygon({
         paths: [coords,rCoords],
         strokeColor: '#FF9800',
         strokeOpacity: .8,
@@ -116,7 +116,7 @@ function getZone3Coords(rCoords) {
         coords.push(new google.maps.LatLng(aaCoords[0],aaCoords[1]));
       });
 
-      var zone3 = new google.maps.Polygon({
+      zone3 = new google.maps.Polygon({
         paths: [coords,rCoords],
         strokeColor: '#F44336',
         strokeOpacity: .8,
@@ -132,30 +132,85 @@ function getZone3Coords(rCoords) {
 function checkIfPointInZone1(point) {
         if(!google.maps.geometry.poly.containsLocation(point, zone1)) {
             console.log(point.lat() + ',' + point.lng() + ' is not in zone 1');
-            coords = zone1.getPath.slice(0).push(point)
+            coords = zone1.getPath().getArray().slice(0);
+            coords.push(point);
             sortedCoords = sortBounds(coords);
             
             sSortedBounds = '';
             sortedCoords.forEach(function(s) {
                 sSortedBounds += s.lat() + ',' + s.lng() + ';';
             })
-            
-            sSortedBounds.substring(0,sSortedBounds[length-1]);
-            
+
             $.ajax({
-    url: "/Rosalys/scripts/ajax/updateZone1Coord.ajax.php",
+    url: "/Rosalys/scripts/ajax/updateZone1Coords.ajax.php",
     statusCode: {
       404: function () {
         alert("Not Found!");
       }
     },
     method: 'POST',
-    data: {coords: sSortedBounds},
+    data: {coords: sSortedBounds.substring(0,sSortedBounds.length-1)},
 
     success: function (result) {
-            console.log(results)
+
         }});
         }
+}
+
+function checkIfPointInZone2(point) {
+  if(!google.maps.geometry.poly.containsLocation(point, zone2)) {
+    console.log(point.lat() + ',' + point.lng() + ' is not in zone 2');
+    coords = zone2.getPath().getArray().slice(0);
+    coords.push(point);
+    sortedCoords = sortBounds(coords);
+
+    sSortedBounds = '';
+    sortedCoords.forEach(function(s) {
+      sSortedBounds += s.lat() + ',' + s.lng() + ';';
+    })
+
+    $.ajax({
+      url: "/Rosalys/scripts/ajax/updateZone2Coords.ajax.php",
+      statusCode: {
+        404: function () {
+          alert("Not Found!");
+        }
+      },
+      method: 'POST',
+      data: {coords: sSortedBounds.substring(0,sSortedBounds.length-1)},
+
+      success: function (result) {
+
+      }});
+  }
+}
+
+function checkIfPointInZone3(point) {
+  if(!google.maps.geometry.poly.containsLocation(point, zone3)) {
+    console.log(point.lat() + ',' + point.lng() + ' is not in zone 3');
+    coords = zone3.getPath().getArray().slice(0);
+    coords.push(point);
+    sortedCoords = sortBounds(coords);
+
+    sSortedBounds = '';
+    sortedCoords.forEach(function(s) {
+      sSortedBounds += s.lat() + ',' + s.lng() + ';';
+    })
+
+    $.ajax({
+      url: "/Rosalys/scripts/ajax/updateZone3Coords.ajax.php",
+      statusCode: {
+        404: function () {
+          alert("Not Found!");
+        }
+      },
+      method: 'POST',
+      data: {coords: sSortedBounds.substring(0,sSortedBounds.length-1)},
+
+      success: function (result) {
+
+      }});
+  }
 }
 
 function findZone(location) {
@@ -178,8 +233,10 @@ function findZone(location) {
             checkIfPointInZone1(location);
           } else if(distance <= 10000 && duration <= 900) {
             $("#result").html('Vous &ecirc;tes en <span class="zone2">Zone 2 (8 &euro; de frais de livraison)</span>').slideDown('slow');
+            checkIfPointInZone2(location);
           } else if(distance <= 15000 && duration <= 1500) {
             $("#result").html('Vous &ecirc;tes en <span class="zone3">Zone 3 (12 &euro; de frais de livraison)</span>').slideDown('slow');
+            checkIfPointInZone3(location);
           } else {
             $("#result").html('Vous &ecirc;tes hors zone').slideDown('slow');
           }
