@@ -3,7 +3,7 @@
 class Controller
 {
     protected $_css = array("main");
-    protected $_js = array("");
+    protected $_js = array("main");
     protected $pageName;
 
     function addLayout($action) {

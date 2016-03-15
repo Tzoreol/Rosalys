@@ -1,3 +1,10 @@
+<div id="show" class="card">
+    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show1.jpg" alt="Composition florale 1" />
+    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show2.jpg" alt="Composition florale 2" />
+    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show3.jpg" alt="Composition florale 3" />
+    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show4.jpg" alt="Composition florale 4" />
+    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show5.jpg" alt="Composition florale 5" />
+</div>
 <div class="card">
     <h2>Votre nouveau fleuriste &agrave; Amboise</h2>
     <div class="card_content">
