@@ -12,3 +12,5 @@ RewriteRule ^AddEntry/Submit$ index.php?controller=AddEntry&action=submit [L]
 
 RewriteRule ^Outstanding$ index.php?controller=AddOutstanding [L]
 RewriteRule ^Outstanding/Submit$ index.php?controller=AddOutstanding&action=submit [L]
+
+ErrorDocument 404 /Rosalys/errors/404.html
