@@ -1,5 +1,5 @@
 <div id="show" class="card">
-    <img src="<?php echo BASE_DIR; ?>/styles/img/show/show1.jpg" alt="Composition florale 1" />
+    <img class="active" src="<?php echo BASE_DIR; ?>/styles/img/show/show1.jpg" alt="Composition florale 1" />
     <img src="<?php echo BASE_DIR; ?>/styles/img/show/show2.jpg" alt="Composition florale 2" />
     <img src="<?php echo BASE_DIR; ?>/styles/img/show/show3.jpg" alt="Composition florale 3" />
     <img src="<?php echo BASE_DIR; ?>/styles/img/show/show4.jpg" alt="Composition florale 4" />
@@ -9,17 +9,16 @@
     <h2>Votre nouveau fleuriste &agrave; Amboise</h2>
     <div class="card_content">
         <p>
-            Nouveau propri&eacute;taire, nouvelle d&eacute;coration et donc nouveau nom !
-            &Agrave; partir du 30 Avril 2016, <i>Chic et Champs</i> devient <i>Rosalys</i>.
-        </p>
-        <h3>Qu'est-ce que cela change pour vous ?</h3>
-        <p>
-            Presque rien. Les fleurs sont toujours l&agrave;, la d&eacute;coration un peu moins.
-            Probablement des nouveaux horaires, mais sans incidences. Venez apprendre &agrave conna&icrc;tre Fanny et surtout n'h&eacute;sitez pas &agrave donner votre avis !
-        </p>
+           Fanny est heureuse de vous accueillir dans son petit paradis rempli de <strong>fleurs</strong>, <strong>Rosalys</strong>.
+           </p>
+           <p>
+           <strong>Fleuriste</strong> mais surtout passionn&eacute;e depuis 14 ans, vous pouvez d&eacute;couvrir ses cr&eacute;ations au <strong>1 rue Bretonneau</strong> &agrave; <strong>Amboise</strong>
+           </p>
+           <p>
+           Elle saura vous accueillir et vous conseiller pour trouver la <strong>composition florale</strong> qui accompagnera chaque occasion de votre vie.</p>
     </div>
     <div class="card_navigation_50">
         <a href="http://www.google.fr">Commander en ligne</a>
-        <a href="http://www.google.co.uk">Voir les comositions</a>
+        <a href="http://www.google.co.uk">Voir les compositions</a>
     </div>
 </div>

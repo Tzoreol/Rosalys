@@ -104,14 +104,16 @@ main .card {
 }
 
 main .card#show {
-	height: 500px;
+	height: 250px;
+	text-align: center;
+	margin: auto;
 }
 
 main .card#show img {
 	display: none;
 	position: absolute;
 	top:0;
-
+    height: 250px;
 }
 
 main .card#show img:first-child {
