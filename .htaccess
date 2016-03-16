@@ -4,8 +4,7 @@ RewriteRule ^$ index.php?controller=Home [L]
 
 RewriteRule ^Accueil$ index.php?controller=Home [L]
 RewriteRule ^Infos$ index.php?controller=Infos [L]
-
-RewriteRule ^Dashboard$ index.php?controller=Dashboard [L]
+RewriteRule ^Compositions$ index.php?controller=Compositions [L]
 
 RewriteRule ^AddEntry$ index.php?controller=AddEntry [L]
 RewriteRule ^AddEntry/Submit$ index.php?controller=AddEntry&action=submit [L]

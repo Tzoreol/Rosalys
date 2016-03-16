@@ -5,6 +5,7 @@ class Controller
     protected $_css = array("main");
     protected $_js = array("main");
     protected $pageName;
+    protected $hasSubNav = false;
 
     function addLayout($action) {
         include_once(dirname(dirname(__FILE__)) .DIR_SEPARATOR. "Views" .DIR_SEPARATOR. "Layout.php");
@@ -44,5 +45,9 @@ class Controller
 
     function isActive($element) {
         return strtolower($this->pageName) == $element ? "active" : "";
+    }
+    
+    function hasSubNav() {
+        return $this->hasSubNav;
     }
 }

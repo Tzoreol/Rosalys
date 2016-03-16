@@ -5,3 +5,4 @@
     <a class="menu_link <?php echo $this->isActive('infos') ?>" href="Infos">Informations pratiques</a>
     <a class="menu_link <?php echo $this->isActive('contact') ?>" href="Contact">Contact</a>
 </nav>
+<?php $this->hasSubNav() ? $this->includeSubNav() : '' ?>
