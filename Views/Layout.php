@@ -23,7 +23,7 @@
 		<header class="mdl-layout__header">
 			<?php $this->addHeader(); ?>
 		</header>
-		<main class="<?php $this->hasSubNav() ? 'down' : 'normal' ?>">
+		<main class="<?php echo $this->hasSubNav() ? 'down' : 'normal' ?>">
 			<?php $this->$action(); ?>
 		</main>
 	</body>

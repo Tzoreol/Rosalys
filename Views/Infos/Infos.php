@@ -14,12 +14,12 @@
         <p>
             <ul id="hours">
                 <li><label>Lundi : </label> Ferm&eacute;</li>
-                <li><label>Mardi : </label> 9h30 - 12h00 / 14h00 - 19h00</li>
-                <li><label>Mercredi : </label> 9h30 - 12h00 / 14h00 - 19h00</li>
-                <li><label>Jeudi : </label> 9h30 - 12h00 / 14h00 - 19h00</li>
-                <li><label>Vendredi : </label> 9h30 - 12h00 / 14h00 - 19h30</li>
-                <li><label>Samedi : </label> 9h30 - 19h30</li>
-                <li><label>Dimanche : </label> 9h30 - 14h30</li>
+                <li><label>Mardi : </label> 9h00 - 12h30 / 14h30 - 19h00</li>
+                <li><label>Mercredi : </label> 9h00 - 12h30 / 14h30 - 19h00</li>
+                <li><label>Jeudi : </label> 9h00 - 12h30 / 14h30 - 19h00</li>
+                <li><label>Vendredi : </label> 9h00 - 12h30 / 14h30 - 19h30</li>
+                <li><label>Samedi : </label> 9h00 - 19h30</li>
+                <li><label>Dimanche : </label> 9h00 - 12h30</li>
             </ul>
         </p>
     </div>
