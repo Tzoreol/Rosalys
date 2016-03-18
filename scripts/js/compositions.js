@@ -12,22 +12,18 @@ $(document).ready(function() {
     
     $('.thumbnail').click(function() {
         var src = $(this).attr('src');
-        $('#fade img').attr('src', src);
-        $('#fade img').css('opacity',0);
-         
-       $('#fade').fadeIn('slow', function() {
         var maxH = $(window).height() * .8;
-        var h = $('#fade img').height();
-        var w = $('#fade img').width();
-        
+        var halfWindowWidth = $(window).width() / 2;
+        var halfWindowHeight = $(window).height() / 2;
+        var h = $(this).attr('normalHeight');
+        var w = $(this).attr('normalWidth');
         var height = ((h*1000)/w) <= maxH ? ((h*1000)/w) : maxH;
         var width = (height== maxH) ? ((w*height)/h) : 1000;
+
+        $('#fade img').attr('src', src);
+        $('#fade').fadeIn('slow', function() {
         
-        $('#fade img').height(1);
-        $('#fade img').height(1);
-        $('#fade img').css('opacity',1);
- 
-          $('#fade img').animate({
+            $('#fade img').animate({
               width: width,
               left: ($(window).width()/2) - (width/2)
           },
@@ -40,19 +36,19 @@ $(document).ready(function() {
           1000,
          function() {
             $('#fade #close').offset({
-                top: ($(window).height()/2) - (height/2),
+                top: $('#fade img').offset().top,
                 left: (($(window).width()/2) - (width/2)) + (width - $('#fade i').height())
-            });
+            }).fadeIn();
             
             $('#fade #next').offset({
-                top: ($(window).height()/2),
-                left: $('#fade img').offset().left + width
-            });
+                top: halfWindowHeight,
+                left: (($(window).width()/2) - (width/2)) + (width)
+            }).fadeIn();
             
             $('#fade #previous').offset({
-                top: ($(window).height()/2),
-                left: $('#fade img').offset().left - 24
-            });
+                top: halfWindowHeight,
+                left: $('#fade img').offset().left - 100
+            }).fadeIn();
          }
             );
           });
@@ -117,6 +113,7 @@ $(document).ready(function() {
    });
    
    $('#fade #close').click(function() {
+       $('#fade i').fadeOut();
        $('#fade img').animate({
            height: 1,
            top: ($(window).height()/2)
@@ -140,8 +137,14 @@ $(document).ready(function() {
        var actual = $('.thumbnail[src="' + src + '"]');
         src = actual.prev().attr('src');
         
+        var h = actual.prev().attr('normalHeight');
+        var w = actual.prev().attr('normalWidth');
+        var maxH = $(window).height() * .8;
+        var height = ((h*1000)/w) <= maxH ? ((h*1000)/w) : maxH;
+        var width = (height== maxH) ? ((w*height)/h) : 1000;
+        
         $('#fade img').attr('src', src);
-        updateImg();
+        updateImg(width,height);
     });
     
     $('#fade #next').click(function() {
@@ -150,7 +153,37 @@ $(document).ready(function() {
        var actual = $('.thumbnail[src="' + src + '"]');
         src = actual.next().attr('src');
         
+        var h = actual.next().attr('normalHeight');
+        var w = actual.next().attr('normalWidth');
+        var maxH = $(window).height() * .8;
+        var height = ((h*1000)/w) <= maxH ? ((h*1000)/w) : maxH;
+        var width = (height== maxH) ? ((w*height)/h) : 1000;
+        
         $('#fade img').attr('src', src);
-        updateImg();
+        updateImg(width,height);
     });
 });
+
+function updateImg(w,h) {
+   $('#fade img').animate({
+        width: w,
+        left: ($(window).width()/2) - (w/2),
+        height: h,
+        top: ($(window).height()/2) - (h/2)},
+        1000);
+        
+    $('#fade #close').offset({
+        top: $(window).height + (h/2),
+        left: (($(window).width()/2) - (w/2)) + (w - $('#fade i').height())
+    });
+    
+    $('#fade #next').offset({
+        top: $(window).height()/2,
+        left: (($(window).width()/2) - (width/2)) + (width)
+    });
+    
+    $('#fade #previous').offset({
+        top: $(window).height()/2,
+        left: (($(window).width()/2) - (w/2)) - $('#fade i').height()
+    });
+}
