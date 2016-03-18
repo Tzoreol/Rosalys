@@ -77,4 +77,8 @@
 ?>
 </div>
 </div>
-<div id="fade"><img src="" alt="Photo agrandie" /></div>
+<div id="fade">
+    <img src="" alt="Photo agrandie" />
+    <i id="close" class="material-icons validate">clear</i>
+   <!-- <i id="previous" class="material-icons">keyboard_arrow_left</i>
+    <i id="next" class="material-icons">keyboard_arrow_right</i></div>-->

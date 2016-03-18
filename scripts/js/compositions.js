@@ -6,6 +6,7 @@ $(document).ready(function() {
     var deuilPosition = $('#deuil').offset().top;
     var mariagePosition = $('#mariage').offset().top;
     var seminairesPosition = $('#seminaires').offset().top;
+    var arrowWidth = $('#fade #next').width();
     
    $('span[name="plaisir_doffrir"]').addClass('active');
     
@@ -36,7 +37,24 @@ $(document).ready(function() {
               height: height,
               top: ($(window).height()/2) - (height/2)
           },
-          1000);
+          1000,
+         function() {
+            $('#fade #close').offset({
+                top: ($(window).height()/2) - (height/2),
+                left: (($(window).width()/2) - (width/2)) + (width - $('#fade i').height())
+            });
+            
+            $('#fade #next').offset({
+                top: ($(window).height()/2),
+                left: $('#fade img').offset().left + width
+            });
+            
+            $('#fade #previous').offset({
+                top: ($(window).height()/2),
+                left: $('#fade img').offset().left - 24
+            });
+         }
+            );
           });
        });
    });
@@ -96,5 +114,43 @@ $(document).ready(function() {
            scrollTop: seminairesPosition - $('header').height()
        }, 'slow');
        }
-   })
+   });
+   
+   $('#fade #close').click(function() {
+       $('#fade img').animate({
+           height: 1,
+           top: ($(window).height()/2)
+       },
+       1000,
+       function() {
+           $('#fade img').animate({
+               width: 1,
+               left: ($(window).width()/2)
+           },
+           1000,
+           function() {
+               $('#fade').fadeOut('slow');
+           });
+       });
+   });
+   
+   $('#fade #previous').click(function() {
+       var src = $('#fade img').attr('src');
+      
+       var actual = $('.thumbnail[src="' + src + '"]');
+        src = actual.prev().attr('src');
+        
+        $('#fade img').attr('src', src);
+        updateImg();
+    });
+    
+    $('#fade #next').click(function() {
+       var src = $('#fade img').attr('src');
+      
+       var actual = $('.thumbnail[src="' + src + '"]');
+        src = actual.next().attr('src');
+        
+        $('#fade img').attr('src', src);
+        updateImg();
+    });
 });
