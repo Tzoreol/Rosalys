@@ -35,6 +35,8 @@ $(document).ready(function() {
           },
           1000,
          function() {
+             console.log("Image width: " + width);
+             console.log("Window width: " + $(window).width());
             $('#fade #close').offset({
                 top: $('#fade img').offset().top,
                 left: (($(window).width()/2) - (width/2)) + (width - $('#fade i').height())
@@ -47,7 +49,7 @@ $(document).ready(function() {
             
             $('#fade #previous').offset({
                 top: halfWindowHeight,
-                left: $('#fade img').offset().left - 100
+                left: (($(window).width()/2) - (width/2)) - $('#fade i').height()
             }).fadeIn();
          }
             );
@@ -179,7 +181,7 @@ function updateImg(w,h) {
     
     $('#fade #next').offset({
         top: $(window).height()/2,
-        left: (($(window).width()/2) - (width/2)) + (width)
+        left: (($(window).width()/2) - (w/2)) + (w)
     });
     
     $('#fade #previous').offset({

@@ -5,11 +5,6 @@ RewriteRule ^$ index.php?controller=Home [L]
 RewriteRule ^Accueil$ index.php?controller=Home [L]
 RewriteRule ^Infos$ index.php?controller=Infos [L]
 RewriteRule ^Compositions$ index.php?controller=Compositions [L]
-
-RewriteRule ^AddEntry$ index.php?controller=AddEntry [L]
-RewriteRule ^AddEntry/Submit$ index.php?controller=AddEntry&action=submit [L]
-
-RewriteRule ^Outstanding$ index.php?controller=AddOutstanding [L]
-RewriteRule ^Outstanding/Submit$ index.php?controller=AddOutstanding&action=submit [L]
+RewriteRule ^Contact$ index.php?controller=Contact [L]
 
 ErrorDocument 404 /Rosalys/errors/404.html
